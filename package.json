@@ -1,0 +1,49 @@
+{
+  "name": "goatified",
+  "version": "1.0.0",
+  "description": "After an Accepted LeetCode submission, save your solution with formatted problem statements, examples, and constraints to GitHub.",
+  "type": "module",
+  "author": "Harmeett Singh",
+  "license": "MIT",
+  "homepage": "https://github.com/HarmeettSinghh/Goatified---Leetcode-to-Github#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HarmeettSinghh/Goatified---Leetcode-to-Github.git"
+  },
+  "bugs": {
+    "url": "https://github.com/HarmeettSinghh/Goatified---Leetcode-to-Github/issues"
+  },
+  "keywords": [
+    "leetcode",
+    "github",
+    "chrome-extension",
+    "manifest-v3",
+    "developer-tools",
+    "dsa",
+    "leetcode-solutions",
+    "react",
+    "vite"
+  ],
+  "scripts": {
+    "dev": "vite build --watch --mode development",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "package": "npm run build && cd dist && zip -r ../goatified.zip . && cd .."
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@crxjs/vite-plugin": "^2.0.0-beta.28",
+    "@types/chrome": "^0.0.270",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.39",
+    "tailwindcss": "^3.4.4",
+    "typescript": "^5.5.3",
+    "vite": "^5.3.3"
+  }
+}

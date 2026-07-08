@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "name": "Goatified — LeetCode to GitHub",
+  "version": "1.0.0",
+  "description": "After an Accepted LeetCode submission, save your solution with AI-generated notes to GitHub — only when you click Save.",
+  "icons": {
+    "16": "public/icons/icon16.png",
+    "48": "public/icons/icon48.png",
+    "128": "public/icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "src/popup/index.html",
+    "default_icon": {
+      "16": "public/icons/icon16.png",
+      "48": "public/icons/icon48.png",
+      "128": "public/icons/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "src/background/serviceWorker.ts",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://leetcode.com/problems/*", "https://leetcode.cn/problems/*"],
+      "js": ["src/content/main.tsx"],
+      "css": ["src/content/content.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "permissions": ["storage", "identity", "activeTab", "scripting"],
+  "host_permissions": [
+    "https://leetcode.com/*",
+    "https://leetcode.cn/*",
+    "https://api.github.com/*"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["public/icons/*"],
+      "matches": ["https://leetcode.com/*", "https://leetcode.cn/*"]
+    }
+  ]
+}

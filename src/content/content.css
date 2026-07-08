@@ -1,0 +1,23 @@
+@tailwind components;
+@tailwind utilities;
+
+/* Intentionally omit @tailwind base here: injecting a full CSS reset into the
+   LeetCode page would break their layout. All Goatified UI is self-contained
+   inside #goatified-root and sets its own colors/typography explicitly. */
+
+#goatified-root {
+  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  line-height: normal;
+}
+
+#goatified-root *,
+#goatified-root *::before,
+#goatified-root *::after {
+  box-sizing: border-box;
+}
+
+#goatified-root button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
