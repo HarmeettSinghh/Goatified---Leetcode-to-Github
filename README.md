@@ -12,7 +12,7 @@ Goatified watches for accepted solutions on both **LeetCode.com** and **LeetCode
 
 ## Features
 
-- **LeetCode & LeetCode CN Support**: Automatically detects when a submission status is "Accepted" or "通过".
+- **LeetCode & LeetCode CN Support**: Automatically detects when a submission status is "Accepted".
 - **Dynamic Floating UI**: A floating "Save to GitHub" button appears overlays on accepted solutions.
 - **Interactive Preview Modal**: Review details (difficulty, language, runtime, memory, code) and select the target repository before committing.
 - **Duplicate Detection**: Automatically checks the destination repository for existing files for that problem and prompts you to **Cancel** or **Force Update**.
