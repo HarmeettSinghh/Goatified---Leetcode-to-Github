@@ -1,4 +1,5 @@
 import type { Difficulty, SubmissionDetails } from './types';
+import { sendMessage } from './messaging';
 
 const GRAPHQL_ENDPOINT = `${window.location.origin}/graphql/`;
 
@@ -180,11 +181,22 @@ export async function buildSubmissionDetails(
   }
 
   if (!code) {
-    const editorLines = document.querySelectorAll('.view-line');
-    if (editorLines.length > 0) {
-      code = Array.from(editorLines)
-        .map((line) => line.textContent ?? '')
-        .join('\n');
+    try {
+      code = await sendMessage<string>({ type: 'GET_MONACO_CODE' });
+    } catch (e) {
+      console.warn('[Goatified] Failed to get code from Monaco API:', e);
+    }
+
+    if (!code) {
+      const editorLines = Array.from(document.querySelectorAll('.view-line')) as HTMLElement[];
+      if (editorLines.length > 0) {
+        editorLines.sort((a, b) => {
+          const topA = parseFloat(a.style.top || '0') || a.getBoundingClientRect().top;
+          const topB = parseFloat(b.style.top || '0') || b.getBoundingClientRect().top;
+          return topA - topB;
+        });
+        code = editorLines.map((line) => line.textContent ?? '').join('\n');
+      }
     }
   }
 

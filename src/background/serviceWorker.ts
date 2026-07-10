@@ -11,7 +11,7 @@ import type { RuntimeMessage } from '../lib/types';
 
 type SendResponse = (response: { ok: boolean; data?: unknown; error?: string }) => void;
 
-async function handleMessage(message: RuntimeMessage): Promise<unknown> {
+async function handleMessage(message: RuntimeMessage, sender?: chrome.runtime.MessageSender): Promise<unknown> {
   switch (message.type) {
     case 'GET_SETTINGS': {
       return getSettings();
@@ -95,13 +95,48 @@ async function handleMessage(message: RuntimeMessage): Promise<unknown> {
       return { success: true, commitSha: result.commitSha, repoUrl };
     }
 
+    case 'GET_MONACO_CODE': {
+      let tabId = sender?.tab?.id;
+      if (!tabId) {
+        const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+        tabId = tab?.id;
+      }
+      if (!tabId) throw new Error('Active tab ID not found.');
+
+      const results = await chrome.scripting.executeScript({
+        target: { tabId },
+        world: 'MAIN',
+        func: () => {
+          try {
+            const win = window as any;
+            const editors = win.monaco?.editor?.getEditors();
+            if (editors && editors.length > 0) {
+              const editor = editors.find((e: any) => e.getDomNode()?.isConnected) || editors[0];
+              return editor.getValue();
+            }
+            const models = win.monaco?.editor?.getModels();
+            if (models && models.length > 0) {
+              return models[0].getValue();
+            }
+            return '';
+          } catch {
+            return '';
+          }
+        }
+      });
+      if (results && results[0]) {
+        return results[0].result;
+      }
+      return '';
+    }
+
     default:
       throw new Error(`Unhandled message type: ${(message as { type: string }).type}`);
   }
 }
 
-chrome.runtime.onMessage.addListener((message: RuntimeMessage, _sender, sendResponse: SendResponse) => {
-  handleMessage(message)
+chrome.runtime.onMessage.addListener((message: RuntimeMessage, sender, sendResponse: SendResponse) => {
+  handleMessage(message, sender)
     .then((data) => sendResponse({ ok: true, data }))
     .catch((err: Error) => sendResponse({ ok: false, error: err.message }));
   return true; // keep the message channel open for the async response

@@ -76,6 +76,7 @@ export type RuntimeMessage =
   | { type: 'LIST_REPOS' }
   | { type: 'CREATE_REPO'; payload: { name: string } }
   | { type: 'CHECK_DUPLICATE'; payload: { repoFullName: string; problemName: string; questionId: string } }
+  | { type: 'GET_MONACO_CODE' }
   | {
       type: 'UPLOAD_SOLUTION';
       payload: { submission: SubmissionDetails; forceUpdate: boolean };
