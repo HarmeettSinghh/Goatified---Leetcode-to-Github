@@ -4,23 +4,35 @@ export default {
   content: ['./src/**/*.{ts,tsx,html}'],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Geist', 'system-ui', 'sans-serif'],
+      },
       colors: {
+        'pop-bg': '#0F1012',
+        'pop-surface': '#17181C',
+        'pop-border': '#2A2D33',
+        'pop-primary': '#F97316',
+        'pop-hover': '#EA580C',
+        'pop-text': '#F5F5F5',
+        'pop-secondary': '#9CA3AF',
+        'pop-muted': '#6B7280',
+        'pop-success': '#22C55E',
         goat: {
-          50: '#f2fbf5',
-          100: '#e0f7e7',
-          200: '#c1eecf',
-          300: '#8fe0ac',
-          400: '#57cb82',
-          500: '#2fb262',
-          600: '#20904d',
-          700: '#1c7240',
-          800: '#1a5b36',
-          900: '#164b2e',
-          950: '#082a19'
+          50: '#fff7ed',
+          100: '#ffedd5',
+          200: '#fed7aa',
+          300: '#fdbb74',
+          400: '#fb923c',
+          500: '#f97316',
+          600: '#ea580c',
+          700: '#c2410c',
+          800: '#9a3412',
+          900: '#7c2d12',
+          950: '#431407'
         }
       },
       boxShadow: {
-        goat: '0 10px 40px -10px rgba(32, 144, 77, 0.45)'
+        goat: '0 10px 40px -10px rgba(249, 115, 22, 0.45)'
       },
       keyframes: {
         'slide-up': {
